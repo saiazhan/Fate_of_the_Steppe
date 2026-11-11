@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#211710">
+  <title>Степная судьба — Настройки</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="settings-scene">
+    <div class="scene-image" aria-hidden="true"></div>
+    <div class="scene-vignette" aria-hidden="true"></div>
+
+    <header class="brand">
+      <div class="brand-kicker">ВИЗУАЛЬНАЯ НОВЕЛЛА</div>
+      <h1>Степная судьба</h1>
+      <div class="brand-subtitle">Дала тағдыры <span>·</span> Fate of the Steppe</div>
+    </header>
+
+    <section class="settings-panel" aria-label="Настройки игры">
+      <div class="panel-heading">
+        <div>
+          <div class="eyebrow">ПАУЗА ПУТЕШЕСТВИЯ</div>
+          <h2>Настройки</h2>
+        </div>
+        <button class="close-button" id="close-settings" type="button" aria-label="Закрыть настройки">×</button>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Разделы настроек">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-audio" id="tab-button-audio" data-tab="audio">Аудио</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-video" id="tab-button-video" data-tab="video">Видео</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-other" id="tab-button-other" data-tab="other">Прочее</button>
+      </div>
+
+      <div class="tab-content active" id="tab-audio" role="tabpanel" aria-labelledby="tab-button-audio">
+        <div class="setting-block">
+          <div class="setting-label"><label for="music-volume">Громкость музыки</label><output id="music-value">70%</output></div>
+          <input id="music-volume" data-setting="musicVolume" type="range" min="0" max="100" value="70">
+        </div>
+        <div class="setting-block">
+          <div class="setting-label"><label for="sfx-volume">Громкость звуков</label><output id="sfx-value">80%</output></div>
+          <input id="sfx-volume" data-setting="sfxVolume" type="range" min="0" max="100" value="80">
+        </div>
+        <div class="setting-block">
+          <div class="setting-label"><label for="voice-volume">Громкость персонажей</label><output id="voice-value">85%</output></div>
+          <input id="voice-volume" data-setting="voiceVolume" type="range" min="0" max="100" value="85">
+          <p class="hint">Голосовые настройки уже предусмотрены; сама озвучка появится позже.</p>
+        </div>
+        <label class="check-row"><span>Отключить все звуки</span><input id="mute-all" data-setting="muteAll" type="checkbox"></label>
+      </div>
+
+      <div class="tab-content" id="tab-video" role="tabpanel" aria-labelledby="tab-button-video" hidden>
+        <label class="select-row" for="display-mode"><span>Режим отображения</span>
+          <select id="display-mode" data-setting="displayMode">
+            <option value="windowed">В окне</option>
+            <option value="fullscreen">Полный экран</option>
+          </select>
+        </label>
+        <label class="select-row" for="resolution"><span>Размер окна</span>
+          <select id="resolution" data-setting="resolution">
+            <option value="auto">Автоматически</option>
+            <option value="1280x720">1280 × 720</option>
+            <option value="1600x900">1600 × 900</option>
+            <option value="1920x1080">1920 × 1080</option>
+          </select>
+        </label>
+        <label class="check-row"><span>Уменьшать эффекты движения</span><input type="checkbox" data-setting="reducedMotion"></label>
+        <p class="hint">В браузерном прототипе режим полного экрана работает, если его разрешает браузер. Размер окна станет полноценной настройкой в настольной версии.</p>
+      </div>
+
+      <div class="tab-content" id="tab-other" role="tabpanel" aria-labelledby="tab-button-other" hidden>
+        <label class="select-row" for="language"><span>Язык интерфейса</span>
+          <select id="language" data-setting="language">
+            <option value="ru">Русский (по умолчанию)</option>
+            <option value="kk">Қазақша — позже</option>
+            <option value="en">English — later</option>
+          </select>
+        </label>
+        <div class="setting-block">
+          <div class="setting-label"><label for="text-speed">Скорость текста</label><output id="speed-value">Средняя</output></div>
+          <input id="text-speed" data-setting="textSpeed" type="range" min="1" max="5" value="3">
+        </div>
+        <div class="setting-block">
+          <div class="setting-label"><label for="font-size">Размер текста</label><output id="font-value">Обычный</output></div>
+          <input id="font-size" data-setting="fontSize" type="range" min="1" max="3" value="2">
+        </div>
+        <label class="check-row"><span>Пропускать только прочитанный текст</span><input type="checkbox" data-setting="skipReadOnly" checked></label>
+        <label class="check-row"><span>Автоматическое продолжение диалога</span><input type="checkbox" data-setting="autoForward"></label>
+      </div>
+
+      <div class="panel-footer">
+        <button class="text-button" id="reset-settings" type="button">По умолчанию</button>
+        <button class="save-button" id="save-settings" type="button">Сохранить</button>
+      </div>
+      <div class="save-status" id="save-status" role="status" aria-live="polite">Настройки хранятся на этом устройстве</div>
+    </section>
+
+    <div class="scene-caption">Тепло очага. Тишина бескрайней степи.</div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
