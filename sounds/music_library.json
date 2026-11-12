@@ -1,12 +1,3 @@
 {
-  "tracks": [
-    {
-      "id": "example-track",
-      "title": "Название композиции",
-      "artist": "Исполнитель",
-      "description": "Краткое описание или момент игры, с которым связана композиция",
-      "src": "sounds/your-track-file.mp3",
-      "loop": true
-    }
-  ]
+  "tracks": []
 }
