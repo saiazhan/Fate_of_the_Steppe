@@ -21,6 +21,7 @@
         <button class="menu-button" data-action="continue">Продолжить</button>
         <button class="menu-button" data-action="load">Загрузить</button>
         <button class="menu-button" data-action="settings">Настройки</button>
+        <button class="menu-button" data-action="other">Прочее</button>
         <button class="menu-button exit" data-action="exit">Выход</button>
       </nav>
       <div class="version">ПРОТОТИП · 0.3.0</div>
@@ -101,6 +102,71 @@
     <div class="scene-caption">Каждое сохранение — часть пути</div>
   </main>
 
+
+  <main id="other-screen" class="screen section-screen other-screen" aria-label="Прочее" hidden>
+    <div class="section-shade"></div>
+    <button class="back-button" data-back="main">← Главное меню</button>
+    <section class="section-menu">
+      <div class="eyebrow">СТЕПНАЯ СУДЬБА</div><h2>Прочее</h2>
+      <p class="section-intro">То, что остаётся за страницами истории</p>
+      <nav class="section-menu-list" aria-label="Дополнительные разделы">
+        <button class="menu-button" data-action="gallery">Галерея</button>
+        <button class="menu-button" data-action="music-room">Музыкальная комната</button>
+        <button class="menu-button" data-action="achievements">Достижения</button>
+        <button class="menu-button" data-action="about">Об игре</button>
+      </nav>
+    </section>
+    <div class="scene-caption">Воспоминания, мелодии и истории</div>
+  </main>
+
+  <main id="gallery-screen" class="screen section-screen gallery-screen" aria-label="Галерея" hidden>
+    <div class="section-shade"></div>
+    <button class="back-button" data-back="other">← Назад</button>
+    <section class="feature-panel gallery-panel">
+      <div class="panel-heading"><div><div class="eyebrow">ВОСПОМИНАНИЯ</div><h2>Галерея</h2></div><button class="close-button" data-back="other" aria-label="Назад">×</button></div>
+      <p class="section-intro">Иллюстрации и важные моменты истории</p>
+      <div class="gallery-album" id="gallery-album" aria-live="polite"></div>
+      <div class="gallery-pagination"><button class="text-button" id="gallery-prev" type="button">← Назад</button><span id="gallery-page-label">Страница 1</span><button class="text-button" id="gallery-next" type="button">Вперёд →</button></div>
+      <div class="save-status">Новые изображения будут открываться по мере прохождения игры</div>
+    </section>
+    <div class="scene-caption">Каждая иллюстрация — часть воспоминания</div>
+  </main>
+
+  <main id="music-room-screen" class="screen section-screen music-room-screen" aria-label="Музыкальная комната" hidden>
+    <div class="section-shade"></div>
+    <button class="back-button" data-back="other">← Назад</button>
+    <section class="feature-panel music-panel">
+      <div class="panel-heading"><div><div class="eyebrow">ЗВУКИ И МЕЛОДИИ</div><h2>Музыкальная комната</h2></div><button class="close-button" data-back="other" aria-label="Назад">×</button></div>
+      <p class="section-intro">Саундтрек и музыкальные воспоминания игры</p>
+      <div class="music-layout">
+        <div class="music-now"><div class="music-disc">♫</div><div class="eyebrow">СЕЙЧАС ИГРАЕТ</div><strong id="music-now-title">Музыка не выбрана</strong><p id="music-now-description">Выбери композицию из списка</p><button class="save-button" id="music-stop" type="button">Остановить</button></div>
+        <div class="music-list-wrap"><div class="eyebrow">КОМПОЗИЦИИ</div><div class="music-list" id="music-list"><p class="hint">Загрузка списка композиций…</p></div></div>
+      </div>
+    </section>
+    <div class="scene-caption">У каждой истории есть своё звучание</div>
+  </main>
+
+  <main id="achievements-screen" class="screen section-screen achievements-screen" aria-label="Достижения" hidden>
+    <div class="section-shade"></div>
+    <button class="back-button" data-back="other">← Назад</button>
+    <section class="feature-panel achievements-panel">
+      <div class="panel-heading"><div><div class="eyebrow">ПУТЬ И РЕШЕНИЯ</div><h2>Достижения</h2></div><button class="close-button" data-back="other" aria-label="Назад">×</button></div>
+      <p class="section-intro">Здесь будут собираться памятные моменты твоего прохождения</p>
+      <div class="achievement-placeholder"><div class="achievement-emblem">✦</div><h3>История ещё пишется</h3><p>Достижения появятся после того, как будут готовы сюжет, выборы и игровые события.</p></div>
+    </section>
+    <div class="scene-caption">Каждый путь оставляет свой след</div>
+  </main>
+
+  <main id="about-screen" class="screen section-screen about-screen" aria-label="Об игре" hidden>
+    <div class="section-shade"></div>
+    <button class="back-button" data-back="other">← Назад</button>
+    <section class="feature-panel about-panel">
+      <div class="eyebrow">СТЕПНАЯ СУДЬБА · ДАЛА ТАҒДЫРЫ</div><h2>Об игре</h2>
+      <div class="about-copy"><h3>История создания</h3><p>Здесь появится рассказ о создании игры и её авторе.</p><h3>О чём эта история</h3><p>Здесь будет предыстория мира и описание замысла новеллы.</p><h3>Благодарности</h3><p>Здесь будут перечислены люди, чья помощь и творчество сделали игру возможной.</p></div>
+    </section>
+    <div class="scene-caption">Спасибо, что отправился в это путешествие</div>
+  </main>
+
   <section class="dialog-backdrop" id="dialog" hidden>
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
       <button class="dialog-close" id="close-dialog" aria-label="Закрыть">×</button>
@@ -113,6 +179,12 @@
   <audio id="music-main" src="sounds/main_menu_sounds.mp3" loop preload="auto"></audio>
   <audio id="music-settings" src="sounds/settings_sounds.mp3" loop preload="auto"></audio>
   <audio id="music-load" src="sounds/safe_load_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-other" src="sounds/other_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-gallery" src="sounds/gallery_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-room" src="sounds/musical_rum_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-achievements" src="sounds/achivments_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-about" src="sounds/about_us_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-selected" preload="none"></audio>
   <script src="app.js"></script>
 </body>
 </html>
