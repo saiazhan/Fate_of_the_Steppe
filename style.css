@@ -132,3 +132,58 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
   .section-screen .scene-caption{position:fixed}
 }
 @media(max-width:420px){.gallery-album{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-pagination{font-size:10px}.gallery-pagination button{padding:8px 5px}.music-track{grid-template-columns:26px 1fr auto;padding:10px}.feature-panel .panel-heading h2{font-size:27px}}
+
+/* Version 0.3.1 layout refinements */
+.main-menu{width:clamp(270px,23vw,325px);padding:clamp(16px,1.7vw,22px)}
+.main-menu h1{font-size:clamp(29px,3.3vw,43px)}
+.menu-button{min-height:clamp(36px,4.4vh,43px)}
+.main-screen>.scene-caption{left:auto;right:clamp(18px,2.5vw,36px);text-align:right;max-width:34vw}
+.other-screen .section-menu{left:auto;right:clamp(20px,4vw,60px);top:50%;transform:translateY(-50%);width:min(350px,calc(100% - 36px))}
+.achievements-screen .feature-panel{left:clamp(20px,4vw,60px);right:auto;transform:translateY(-50%);width:min(560px,calc(100% - 40px))}
+.gallery-panel{max-height:calc(100dvh - 42px);overflow:hidden;padding:clamp(16px,2vw,24px)}
+.gallery-panel .section-intro{margin:5px 0 10px}
+.gallery-album{gap:8px;padding:10px}
+.gallery-card{aspect-ratio:16/9;gap:4px;padding:5px}
+.gallery-card .gallery-lock{font-size:20px}
+.gallery-card small{font-size:9px}
+.gallery-pagination{margin-top:7px}
+.gallery-panel .save-status{padding-top:6px}
+.music-panel{position:absolute;top:0;right:0;bottom:0;left:auto;transform:none;width:min(390px,38vw);max-height:none;height:100%;overflow:hidden;padding:clamp(20px,2.4vw,34px);background:rgba(20,19,16,.88);border-top:0;border-right:0;border-bottom:0}
+.music-panel .panel-heading{padding-bottom:8px}
+.music-panel>.section-intro{margin:3px 0 14px}
+.music-layout{display:block;height:calc(100% - 112px)}
+.music-now{display:none}
+.music-list-wrap{height:100%;display:flex;flex-direction:column}
+.music-list-wrap>.eyebrow{padding:0 4px 8px}
+.music-list{flex:1;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;padding:28px 8px;scrollbar-width:none}
+.music-list::-webkit-scrollbar{display:none}
+.music-track{min-height:74px;scroll-snap-align:center;grid-template-columns:1fr auto;padding:14px 16px;border-radius:3px;background:linear-gradient(110deg,rgba(205,171,112,.15),rgba(40,31,23,.7));box-shadow:0 5px 16px #0004;transition:transform .18s,border-color .18s,background .18s}
+.music-track-icon{display:none}
+.music-track strong{font-size:15px}
+.music-track small{font-size:10px}
+.music-track.active{transform:scale(1.035);background:linear-gradient(110deg,rgba(194,147,76,.35),rgba(60,43,28,.9))}
+.music-track-state{font-size:9px}
+.music-room-screen>.scene-caption{left:clamp(18px,2vw,30px);right:auto;max-width:55vw}
+@media(max-width:760px),(pointer:coarse){
+  .main-screen>.scene-caption{right:14px;left:auto;max-width:40vw;bottom:max(8px,env(safe-area-inset-bottom))}
+  .other-screen .section-menu{position:relative;left:auto;right:auto;top:auto;transform:none;margin:7vh 14px 0 auto;width:min(350px,calc(100% - 28px))}
+  .achievements-screen .feature-panel{position:relative;left:auto;right:auto;top:auto;transform:none;margin:3vh auto 0;width:min(560px,calc(100% - 24px))}
+  .gallery-panel{max-height:calc(100dvh - 100px);overflow:hidden}
+  .gallery-album{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:7px}
+  .gallery-card{aspect-ratio:1.15;gap:3px;font-size:10px}
+  .gallery-card .gallery-lock{font-size:17px}
+  .gallery-card small{font-size:8px}
+  .music-panel{position:relative;top:auto;right:auto;bottom:auto;left:auto;transform:none;margin:0 0 0 auto;width:min(390px,calc(100% - 24px));height:calc(100dvh - 82px);min-height:390px;max-height:none;padding:18px}
+  .music-layout{height:calc(100% - 105px)}
+  .music-list{padding:18px 6px}
+}
+@media(max-height:560px) and (min-width:761px){
+  .gallery-panel{padding:12px 18px}
+  .gallery-panel .panel-heading{padding-bottom:2px}
+  .gallery-panel .panel-heading h2{font-size:25px}
+  .gallery-album{gap:5px;padding:6px}
+  .gallery-card{aspect-ratio:2/1}
+  .gallery-card .gallery-lock{font-size:15px}
+  .gallery-pagination{margin-top:3px}
+  .gallery-panel .save-status{display:none}
+}
