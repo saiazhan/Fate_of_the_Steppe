@@ -5,40 +5,47 @@
   try { settings = {...defaults,...JSON.parse(localStorage.getItem(KEY)||"{}")}; } catch (_) {}
   const $ = s => document.querySelector(s), all = s => [...document.querySelectorAll(s)];
   const speedNames=["Очень медленно","Медленно","Средняя","Быстро","Очень быстро"], fontNames=["Маленький","Обычный","Крупный"];
-  const tracks={main:$("#music-main"),settings:$("#music-settings"),load:$("#music-load")};
-  let currentTrack=null, audioUnlocked=false, toastTimer, selectedSlot=1;
+  const tracks={main:$("#music-main"),settings:$("#music-settings"),load:$("#music-load"),other:$("#music-other"),gallery:$("#music-gallery"),"music-room":$("#music-room"),achievements:$("#music-achievements"),about:$("#music-about")};
+  const selectedMusic=$("#music-selected");
+  let currentTrack=null, audioUnlocked=false, toastTimer, selectedSlot=1, galleryPage=0, musicItems=[];
   const mobileQuery=window.matchMedia("(max-width:760px), (pointer:coarse)");
+  const screenIds=["main-screen","new-game-screen","settings-screen","load-screen","other-screen","gallery-screen","music-room-screen","achievements-screen","about-screen"];
   function toast(message){const node=$("#toast");node.textContent=message;node.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove("show"),2300);}
   function showDialog(title,text){$("#dialog-title").textContent=title;$("#dialog-text").textContent=text;$("#dialog").hidden=false;}
   function closeDialog(){$("#dialog").hidden=true;}
-  function screen(id){["main-screen","new-game-screen","settings-screen","load-screen"].forEach(key=>$("#"+key).hidden=key!==id);}
+  function screen(id){screenIds.forEach(key=>{const node=$("#"+key);if(node)node.hidden=key!==id;});}
+  function stopAllAudio(){Object.values(tracks).forEach(a=>{a.pause();a.currentTime=0;});selectedMusic.pause();selectedMusic.currentTime=0;currentTrack=null;}
   function playTrack(name){
     const next=tracks[name]; if(!next)return;
-    Object.entries(tracks).forEach(([key,audio])=>{if(key!==name){audio.pause();audio.currentTime=0;}});
-    currentTrack=name; next.volume=(settings.muteAll?0:settings.musicVolume/100);
+    stopAllAudio();currentTrack=name;next.volume=(settings.muteAll?0:settings.musicVolume/100);
     if(audioUnlocked){const p=next.play();if(p&&p.catch)p.catch(()=>{});}
   }
   function unlockAudio(){
-    if(audioUnlocked)return; audioUnlocked=true;
+    if(audioUnlocked)return;audioUnlocked=true;
     if(currentTrack&&tracks[currentTrack]){const p=tracks[currentTrack].play();if(p&&p.catch)p.catch(()=>{});}
   }
   document.addEventListener("pointerdown",unlockAudio,{once:true});
   document.addEventListener("keydown",unlockAudio,{once:true});
-  function goMain(){screen("main-screen");playTrack("main");document.title="Степная судьба · Дала тағдыры · Fate of the Steppe";}
+  function goMain(){stopAllAudio();screen("main-screen");playTrack("main");document.title="Степная судьба · Дала тағдыры · Fate of the Steppe";}
   function openSettings(){screen("settings-screen");playTrack("settings");document.title="Настройки — Степная судьба";}
   function openLoad(){screen("load-screen");playTrack("load");document.title="Загрузка — Степная судьба";updateSlotSelection();}
-  function startNewGame(){screen("new-game-screen");Object.values(tracks).forEach(a=>a.pause());currentTrack=null;document.title="Новая игра — Степная судьба";}
+  function openOther(){screen("other-screen");playTrack("other");document.title="Прочее — Степная судьба";}
+  function openGallery(){screen("gallery-screen");playTrack("gallery");renderGallery();document.title="Галерея — Степная судьба";}
+  function openMusicRoom(){screen("music-room-screen");playTrack("music-room");loadMusicLibrary();document.title="Музыкальная комната — Степная судьба";}
+  function openAchievements(){screen("achievements-screen");playTrack("achievements");document.title="Достижения — Степная судьба";}
+  function openAbout(){screen("about-screen");playTrack("about");document.title="Об игре — Степная судьба";}
+  function startNewGame(){stopAllAudio();screen("new-game-screen");document.title="Новая игра — Степная судьба";}
   all("[data-action]").forEach(button=>button.addEventListener("click",()=>{
     unlockAudio();
     switch(button.dataset.action){
-      case "settings":openSettings();break;
-      case "load":openLoad();break;
-      case "new":startNewGame();break;
+      case "settings":openSettings();break;case "load":openLoad();break;case "new":startNewGame();break;
+      case "other":openOther();break;case "gallery":openGallery();break;case "music-room":openMusicRoom();break;
+      case "achievements":openAchievements();break;case "about":openAbout();break;
       case "continue":showDialog("Продолжить","Сохранений пока нет. Когда появится первая игровая сцена, здесь будет продолжение с последнего места.");break;
       case "exit":showDialog("Выход","В браузерном предпросмотре вкладку нельзя закрыть программно. В настольной версии эта кнопка будет завершать игру.");break;
     }
   }));
-  all("[data-back]").forEach(b=>b.addEventListener("click",goMain));
+  all("[data-back]").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.back==="other")openOther();else goMain();}));
   $("#close-settings").addEventListener("click",goMain);$("#close-load").addEventListener("click",goMain);
   $("#dialog-ok").addEventListener("click",closeDialog);$("#close-dialog").addEventListener("click",closeDialog);
   $("#dialog").addEventListener("click",e=>{if(e.target===$("#dialog"))closeDialog();});
@@ -56,17 +63,16 @@
     paintOutputs();document.documentElement.dataset.reducedMotion=settings.reducedMotion?"true":"false";updateMusicVolume();
   }
   function collectSettings(){all("[data-setting]").forEach(c=>{const k=c.dataset.setting;settings[k]=c.type==="checkbox"?c.checked:c.type==="range"?Number(c.value):c.value;});if(mobileQuery.matches)settings.displayMode="windowed";}
-  function updateMusicVolume(){Object.values(tracks).forEach(a=>a.volume=settings.muteAll?0:settings.musicVolume/100);}
+  function updateMusicVolume(){Object.values(tracks).forEach(a=>a.volume=settings.muteAll?0:settings.musicVolume/100);selectedMusic.volume=settings.muteAll?0:settings.musicVolume/100;}
   function saveSettings(){
-    collectSettings();
-    try{localStorage.setItem(KEY,JSON.stringify(settings));$("#save-status").textContent="Сохранено на этом устройстве";}catch(_){$("#save-status").textContent="Не удалось сохранить настройки в этом браузере";}
+    collectSettings();try{localStorage.setItem(KEY,JSON.stringify(settings));$("#save-status").textContent="Сохранено на этом устройстве";}catch(_){$("#save-status").textContent="Не удалось сохранить настройки в этом браузере";}
     paintOutputs();updateMusicVolume();
     if(!mobileQuery.matches&&settings.displayMode==="fullscreen"&&!document.fullscreenElement){const p=document.documentElement.requestFullscreen?.();if(p&&p.catch)p.catch(()=>$("#save-status").textContent="Браузер не разрешил полный экран");}
     else if(document.fullscreenElement&&settings.displayMode==="windowed")document.exitFullscreen?.();
   }
   all("[data-setting]").forEach(c=>c.addEventListener("input",()=>{
     if(c.type==="range"){settings[c.dataset.setting]=Number(c.value);paintOutputs();}
-    if(c.dataset.setting==="musicVolume"||c.dataset.setting==="muteAll") {settings[c.dataset.setting]=c.type==="checkbox"?c.checked:Number(c.value);updateMusicVolume();}
+    if(c.dataset.setting==="musicVolume"||c.dataset.setting==="muteAll"){settings[c.dataset.setting]=c.type==="checkbox"?c.checked:Number(c.value);updateMusicVolume();}
   }));
   $("#save-settings").addEventListener("click",saveSettings);
   $("#reset-settings").addEventListener("click",()=>{settings={...defaults};applySettings();saveSettings();$("#save-status").textContent="Возвращены настройки по умолчанию";});
@@ -75,9 +81,49 @@
   all(".save-slot").forEach(slot=>slot.addEventListener("click",()=>{selectedSlot=Number(slot.dataset.slot);updateSlotSelection();$("#load-status").textContent="Выбран слот "+String(selectedSlot).padStart(2,"0")+" · сохранение пока отсутствует";}));
   $("#load-selected").addEventListener("click",()=>{$("#load-status").textContent="Этот слот пока пуст. Система сохранений появится вместе с игровыми сценами.";});
   $("#delete-selected").addEventListener("click",()=>{$("#load-status").textContent="В выбранном слоте пока нечего удалять.";});
+  const galleryItems=Array.from({length:12},(_,i)=>({number:i+1,title:"Закрытое воспоминание"}));
+  function renderGallery(){
+    const pages=Math.ceil(galleryItems.length/6),start=galleryPage*6;
+    $("#gallery-album").innerHTML=galleryItems.slice(start,start+6).map(item=>'<div class="gallery-card"><span class="gallery-lock">✧</span><span>'+item.title+'</span><small>Иллюстрация '+String(item.number).padStart(2,"0")+'</small></div>').join("");
+    $("#gallery-page-label").textContent="Страница "+(galleryPage+1)+" / "+pages;
+    $("#gallery-prev").disabled=galleryPage===0;$("#gallery-next").disabled=galleryPage>=pages-1;
+  }
+  $("#gallery-prev").addEventListener("click",()=>{if(galleryPage>0){galleryPage--;renderGallery();}});
+  $("#gallery-next").addEventListener("click",()=>{if(galleryPage<Math.ceil(galleryItems.length/6)-1){galleryPage++;renderGallery();}});
+  async function loadMusicLibrary(){
+    const list=$("#music-list");list.innerHTML='<p class="hint">Загрузка списка композиций…</p>';
+    try{
+      const response=await fetch("sounds/music_library.json",{cache:"no-store"});
+      if(!response.ok)throw new Error("HTTP "+response.status);
+      const data=await response.json();musicItems=Array.isArray(data.tracks)?data.tracks:[];
+      renderMusicList();
+    }catch(_){
+      list.innerHTML='<p class="hint">Не удалось прочитать sounds/music_library.json. В сборке игры файл будет загружаться локально; при открытии index.html напрямую браузер может ограничивать чтение JSON.</p>';
+    }
+  }
+  function renderMusicList(){
+    const list=$("#music-list");
+    if(!musicItems.length){list.innerHTML='<p class="hint">Пока здесь нет композиций. Добавь их в sounds/music_library.json.</p>';return;}
+    list.innerHTML="";
+    musicItems.forEach((item,index)=>{
+      const button=document.createElement("button");button.type="button";button.className="music-track";button.dataset.index=String(index);
+      const icon=document.createElement("span");icon.className="music-track-icon";icon.textContent="♫";
+      const info=document.createElement("span");const title=document.createElement("strong");title.textContent=item.title||"Без названия";const description=document.createElement("small");description.textContent=item.description||item.artist||"Композиция";info.append(title,description);
+      const state=document.createElement("span");state.className="music-track-state";state.textContent="СЛУШАТЬ";button.append(icon,info,state);
+      button.addEventListener("click",()=>playMusicItem(index));list.append(button);
+    });
+  }
+  function playMusicItem(index){
+    const item=musicItems[index];if(!item||!item.src){toast("Для этой композиции пока не указан аудиофайл");return;}
+    stopAllAudio();currentTrack="selected";selectedMusic.src=item.src;selectedMusic.loop=item.loop!==false;selectedMusic.volume=settings.muteAll?0:settings.musicVolume/100;
+    $("#music-now-title").textContent=item.title||"Без названия";$("#music-now-description").textContent=[item.artist,item.description].filter(Boolean).join(" · ")||"Саундтрек игры";
+    all(".music-track").forEach((button,i)=>{button.classList.toggle("active",i===index);button.querySelector(".music-track-state").textContent=i===index?"ИГРАЕТ":"СЛУШАТЬ";});
+    if(audioUnlocked){const p=selectedMusic.play();if(p&&p.catch)p.catch(()=>toast("Не удалось воспроизвести этот аудиофайл"));}
+  }
+  $("#music-stop").addEventListener("click",()=>{selectedMusic.pause();selectedMusic.currentTime=0;all(".music-track").forEach(b=>{b.classList.remove("active");b.querySelector(".music-track-state").textContent="СЛУШАТЬ";});$("#music-now-title").textContent="Музыка не выбрана";$("#music-now-description").textContent="Выбери композицию из списка";});
   mobileQuery.addEventListener?.("change",()=>applySettings());
   document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){if(!$("#dialog").hidden)closeDialog();else if(!$("#settings-screen").hidden||!$("#load-screen").hidden||!$("#new-game-screen").hidden)goMain();}
+    if(e.key==="Escape"){if(!$("#dialog").hidden)closeDialog();else if(!$("#main-screen").hidden)return;else if(!$("#new-game-screen").hidden||!$("#settings-screen").hidden||!$("#load-screen").hidden)goMain();else openOther();}
     if(e.key==="F5"||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="r")){e.preventDefault();toast("Перезагрузка отключена в прототипе.");}
   });
   applySettings();playTrack("main");
