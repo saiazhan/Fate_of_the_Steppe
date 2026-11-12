@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#172a25">
+  <meta name="description" content="Степная судьба — визуальная новелла">
   <title>Степная судьба · Дала тағдыры · Fate of the Steppe</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,9 +23,14 @@
         <button class="menu-button" data-action="settings">Настройки</button>
         <button class="menu-button exit" data-action="exit">Выход</button>
       </nav>
-      <div class="version">ПРОТОТИП · 0.2.0</div>
+      <div class="version">ПРОТОТИП · 0.3.0</div>
     </section>
     <div class="scene-caption">Там, где начинается горизонт</div>
+  </main>
+
+  <main id="new-game-screen" class="screen black-screen" aria-label="Новая игра" hidden>
+    <button class="back-button" data-back="main">← Назад</button>
+    <div class="black-screen-label">Здесь начнётся история</div>
   </main>
 
   <main id="settings-screen" class="screen settings-screen" aria-label="Настройки игры" hidden>
@@ -34,7 +40,6 @@
       <div class="eyebrow">СТЕПНАЯ СУДЬБА</div>
       <div class="settings-brand-sub">Дала тағдыры · Fate of the Steppe</div>
     </header>
-
     <section class="settings-panel">
       <div class="panel-heading">
         <div><div class="eyebrow">ПАУЗА ПУТЕШЕСТВИЯ</div><h2>Настройки</h2></div>
@@ -45,21 +50,18 @@
         <button class="tab" role="tab" aria-selected="false" aria-controls="tab-video" id="tab-button-video" data-tab="video">Видео</button>
         <button class="tab" role="tab" aria-selected="false" aria-controls="tab-other" id="tab-button-other" data-tab="other">Прочее</button>
       </div>
-
       <div class="tab-content active" id="tab-audio" role="tabpanel" aria-labelledby="tab-button-audio">
         <div class="setting-block"><div class="setting-label"><label for="music-volume">Громкость музыки</label><output id="music-value">70%</output></div><input id="music-volume" data-setting="musicVolume" type="range" min="0" max="100"></div>
         <div class="setting-block"><div class="setting-label"><label for="sfx-volume">Громкость звуков</label><output id="sfx-value">80%</output></div><input id="sfx-volume" data-setting="sfxVolume" type="range" min="0" max="100"></div>
         <div class="setting-block"><div class="setting-label"><label for="voice-volume">Громкость персонажей</label><output id="voice-value">85%</output></div><input id="voice-volume" data-setting="voiceVolume" type="range" min="0" max="100"><p class="hint">Настройка подготовлена для будущей озвучки.</p></div>
         <label class="check-row"><span>Отключить все звуки</span><input data-setting="muteAll" type="checkbox"></label>
       </div>
-
       <div class="tab-content" id="tab-video" role="tabpanel" aria-labelledby="tab-button-video" hidden>
-        <label class="select-row" for="display-mode"><span>Режим отображения</span><select id="display-mode" data-setting="displayMode"><option value="windowed">В окне</option><option value="fullscreen">Полный экран</option></select></label>
+        <label class="select-row desktop-only" for="display-mode"><span>Режим отображения</span><select id="display-mode" data-setting="displayMode"><option value="windowed">В окне</option><option value="fullscreen">Полный экран</option></select></label>
         <label class="select-row" for="resolution"><span>Размер окна</span><select id="resolution" data-setting="resolution"><option value="auto">Автоматически</option><option value="1280x720">1280 × 720</option><option value="1600x900">1600 × 900</option><option value="1920x1080">1920 × 1080</option></select></label>
         <label class="check-row"><span>Уменьшать эффекты движения</span><input data-setting="reducedMotion" type="checkbox"></label>
-        <p class="hint">Полноэкранный режим работает в браузере при наличии разрешения. Размер окна станет полноценной настройкой в настольной сборке.</p>
+        <p class="hint">Полноэкранный режим доступен на компьютере. На телефоне эта настройка скрыта.</p>
       </div>
-
       <div class="tab-content" id="tab-other" role="tabpanel" aria-labelledby="tab-button-other" hidden>
         <label class="select-row" for="language"><span>Язык интерфейса</span><select id="language" data-setting="language"><option value="ru">Русский (по умолчанию)</option><option value="kk">Қазақша — позже</option><option value="en">English — later</option></select></label>
         <div class="setting-block"><div class="setting-label"><label for="text-speed">Скорость текста</label><output id="speed-value">Средняя</output></div><input id="text-speed" data-setting="textSpeed" type="range" min="1" max="5"></div>
@@ -67,7 +69,6 @@
         <label class="check-row"><span>Пропускать только прочитанный текст</span><input data-setting="skipReadOnly" type="checkbox"></label>
         <label class="check-row"><span>Автоматическое продолжение диалога</span><input data-setting="autoForward" type="checkbox"></label>
       </div>
-
       <div class="panel-footer">
         <button class="text-button" id="reset-settings" type="button">По умолчанию</button>
         <button class="save-button" id="save-settings" type="button">Сохранить</button>
@@ -77,16 +78,41 @@
     <div class="scene-caption">Тепло очага. Тишина бескрайней степи.</div>
   </main>
 
+  <main id="load-screen" class="screen load-screen" aria-label="Загрузка сохранения" hidden>
+    <div class="river-image" aria-hidden="true"></div>
+    <div class="load-shade" aria-hidden="true"></div>
+    <header class="settings-brand"><div class="eyebrow">СТЕПНАЯ СУДЬБА</div><div class="settings-brand-sub">Дала тағдыры · Fate of the Steppe</div></header>
+    <section class="load-panel">
+      <div class="panel-heading">
+        <div><div class="eyebrow">ВОСПОМИНАНИЯ ПУТЕШЕСТВИЯ</div><h2>Загрузить игру</h2></div>
+        <button class="close-button" id="close-load" type="button" aria-label="Вернуться в главное меню">×</button>
+      </div>
+      <div class="save-slots" id="save-slots">
+        <button class="save-slot selected" data-slot="1" type="button"><span class="slot-number">СЛОТ 01</span><strong>Пустое сохранение</strong><small>Здесь появится место и время сохранения</small></button>
+        <button class="save-slot" data-slot="2" type="button"><span class="slot-number">СЛОТ 02</span><strong>Пустое сохранение</strong><small>Здесь появится место и время сохранения</small></button>
+        <button class="save-slot" data-slot="3" type="button"><span class="slot-number">СЛОТ 03</span><strong>Пустое сохранение</strong><small>Здесь появится место и время сохранения</small></button>
+      </div>
+      <div class="load-actions">
+        <button class="save-button" id="load-selected" type="button">Загрузить</button>
+        <button class="delete-button" id="delete-selected" type="button">Удалить</button>
+      </div>
+      <div class="save-status" id="load-status" role="status" aria-live="polite">Выбери слот сохранения</div>
+    </section>
+    <div class="scene-caption">Каждое сохранение — часть пути</div>
+  </main>
+
   <section class="dialog-backdrop" id="dialog" hidden>
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
       <button class="dialog-close" id="close-dialog" aria-label="Закрыть">×</button>
-      <div class="eyebrow">СТЕПНАЯ СУДЬБА</div>
-      <h2 id="dialog-title">Заголовок</h2>
-      <p id="dialog-text"></p>
+      <div class="eyebrow">СТЕПНАЯ СУДЬБА</div><h2 id="dialog-title">Заголовок</h2><p id="dialog-text"></p>
       <div class="dialog-actions"><button class="save-button" id="dialog-ok">Понятно</button></div>
     </div>
   </section>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <audio id="music-main" src="sounds/main_menu_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-settings" src="sounds/settings_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-load" src="sounds/safe_load_sounds.mp3" loop preload="auto"></audio>
   <script src="app.js"></script>
 </body>
 </html>
