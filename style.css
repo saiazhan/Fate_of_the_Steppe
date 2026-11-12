@@ -43,3 +43,42 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 @media(max-width:760px),(pointer:coarse){body{overflow:auto}.screen{min-height:100vh;min-height:100dvh;height:auto}.main-screen{height:100vh;height:100dvh}.main-menu{top:clamp(14px,3vh,24px);left:50%;transform:translateX(-50%);width:min(390px,calc(100vw - 32px));padding:clamp(17px,4vw,23px)}.main-menu h1{font-size:clamp(29px,8vw,43px)}.menu-button{min-height:44px;font-size:16px}.settings-screen,.load-screen{padding:95px 0 65px;overflow:auto}.yurt-image,.river-image{position:fixed;background-position:center}.settings-shade,.load-shade{position:fixed;background:rgba(12,8,5,.56)}.settings-brand{top:16px;left:18px}.settings-panel,.load-panel{position:relative;top:auto;right:auto;transform:none;margin:0 auto;max-height:none;overflow:visible;width:min(480px,calc(100% - 28px));padding:clamp(17px,4vw,23px)}.scene-caption{left:18px;bottom:13px}.desktop-only{display:none!important}.black-screen{height:100vh;height:100dvh}.save-slot{min-height:76px}}
 @media(max-width:380px){.subtitle{font-size:11px}.tabs .tab{font-size:13px}.check-row,.select-row{font-size:12px}.panel-footer .text-button,.panel-footer .save-button{padding:9px 10px;font-size:12px}}
 @media(max-height:620px) and (min-width:761px) and (pointer:fine){.settings-panel,.load-panel{padding:14px 20px}.panel-heading{padding-bottom:9px}.tab-content{padding-top:8px}.setting-block{padding:4px 0 6px}.setting-block input[type=range]{margin-top:7px}.check-row,.select-row{min-height:35px}.save-slot{min-height:65px;padding:9px 12px}}
+
+/* Responsive pass: keep the menu inside the visible mobile viewport */
+@media (max-width:760px),(pointer:coarse){
+  html,body{width:100%;min-width:0;min-height:100%;overflow:hidden}
+  .screen{width:100%;min-width:0;min-height:0}
+  .main-screen{height:100vh;height:100dvh;background-position:center center;background-size:cover}
+  .main-menu{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);width:min( min(88vw,390px), calc(100vw - 28px));max-height:calc(100dvh - 24px);overflow-y:auto;padding:clamp(13px,3.2vw,21px)}
+  .main-menu h1{font-size:clamp(25px,6.5vw,39px);margin:5px 0 4px}
+  .eyebrow{font-size:9px}
+  .subtitle{font-size:clamp(10px,2.7vw,13px)}
+  .ornament{margin:9px 0 11px}
+  .menu-list{gap:5px}
+  .menu-button{min-height:clamp(35px,6.2vh,44px);padding:7px 11px;font-size:clamp(13px,3.5vw,16px)}
+  .version{margin-top:9px}
+  .scene-caption{bottom:max(8px,env(safe-area-inset-bottom));font-size:10px}
+  .settings-screen,.load-screen{height:100vh;height:100dvh;min-height:0;padding:74px 0 max(16px,env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+  .settings-panel,.load-panel{width:min(480px,calc(100vw - 24px));margin:0 auto;max-height:none}
+  .settings-brand{top:max(10px,env(safe-area-inset-top));left:14px}
+  .settings-screen .scene-caption,.load-screen .scene-caption{position:fixed}
+}
+@media (max-width:760px) and (orientation:landscape){
+  .main-menu{left:16px;top:50%;transform:translateY(-50%);width:min(43vw,350px);max-height:calc(100dvh - 16px);padding:12px 16px}
+  .main-menu h1{font-size:clamp(22px,4vw,32px)}
+  .ornament{margin:6px 0 8px}
+  .menu-button{min-height:clamp(30px,8vh,39px);font-size:clamp(12px,1.8vw,15px)}
+  .menu-list{gap:4px}
+  .version{margin-top:6px}
+  .settings-screen,.load-screen{padding:58px 12px 12px}
+  .settings-panel,.load-panel{width:min(460px,58vw);margin-left:auto;margin-right:0;padding:14px 18px}
+  .settings-brand{top:9px;left:14px}
+}
+@media (max-width:380px) and (orientation:portrait){
+  .main-menu{width:calc(100vw - 24px);padding:12px 14px}
+  .main-menu h1{font-size:27px}
+  .menu-button{min-height:36px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
