@@ -105,19 +105,25 @@
     const list=$("#music-list");
     if(!musicItems.length){list.innerHTML='<p class="hint">Пока здесь нет композиций. Добавь их в sounds/music_library.json.</p>';return;}
     list.innerHTML="";
-    musicItems.forEach((item,index)=>{
-      const button=document.createElement("button");button.type="button";button.className="music-track";button.dataset.index=String(index);
-      const icon=document.createElement("span");icon.className="music-track-icon";icon.textContent="♫";
+    for(let cycle=0;cycle<3;cycle++) musicItems.forEach((item,index)=>{
+      const button=document.createElement("button");button.type="button";button.className="music-track";button.dataset.index=String(index);button.dataset.cycle=String(cycle);
       const info=document.createElement("span");const title=document.createElement("strong");title.textContent=item.title||"Без названия";const description=document.createElement("small");description.textContent=item.description||item.artist||"Композиция";info.append(title,description);
-      const state=document.createElement("span");state.className="music-track-state";state.textContent="СЛУШАТЬ";button.append(icon,info,state);
+      const state=document.createElement("span");state.className="music-track-state";state.textContent="ВЫБРАТЬ";button.append(info,state);
       button.addEventListener("click",()=>playMusicItem(index));list.append(button);
     });
+    const middle=list.children.length/3;
+    requestAnimationFrame(()=>{const firstMiddle=list.children[middle];if(firstMiddle)list.scrollTop=firstMiddle.offsetTop-list.offsetTop-(list.clientHeight-firstMiddle.offsetHeight)/2;});
+    list.onscroll=()=>{
+      const third=list.scrollHeight/3;
+      if(list.scrollTop<third*.35)list.scrollTop+=third;
+      else if(list.scrollTop>third*1.65)list.scrollTop-=third;
+    };
   }
   function playMusicItem(index){
     const item=musicItems[index];if(!item||!item.src){toast("Для этой композиции пока не указан аудиофайл");return;}
     stopAllAudio();currentTrack="selected";selectedMusic.src=item.src;selectedMusic.loop=item.loop!==false;selectedMusic.volume=settings.muteAll?0:settings.musicVolume/100;
     $("#music-now-title").textContent=item.title||"Без названия";$("#music-now-description").textContent=[item.artist,item.description].filter(Boolean).join(" · ")||"Саундтрек игры";
-    all(".music-track").forEach((button,i)=>{button.classList.toggle("active",i===index);button.querySelector(".music-track-state").textContent=i===index?"ИГРАЕТ":"СЛУШАТЬ";});
+    all(".music-track").forEach(button=>{const active=Number(button.dataset.index)===index;button.classList.toggle("active",active);button.querySelector(".music-track-state").textContent=active?"ИГРАЕТ":"ВЫБРАТЬ";});
     if(audioUnlocked){const p=selectedMusic.play();if(p&&p.catch)p.catch(()=>toast("Не удалось воспроизвести этот аудиофайл"));}
   }
   $("#music-stop").addEventListener("click",()=>{selectedMusic.pause();selectedMusic.currentTime=0;all(".music-track").forEach(b=>{b.classList.remove("active");b.querySelector(".music-track-state").textContent="СЛУШАТЬ";});$("#music-now-title").textContent="Музыка не выбрана";$("#music-now-description").textContent="Выбери композицию из списка";});
