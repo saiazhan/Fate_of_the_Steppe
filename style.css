@@ -196,9 +196,9 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 .main-language-picker{position:absolute;z-index:3;top:clamp(16px,3vh,30px);left:clamp(16px,3vw,42px);display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(19,32,28,.82);border:1px solid var(--line);color:var(--gold-bright);font:10px Arial,sans-serif;letter-spacing:.16em;backdrop-filter:blur(6px)}
 .main-language-picker select{max-width:145px;padding:4px 22px 4px 7px;color:var(--cream);background:#24352e;border:1px solid rgba(235,211,158,.28);font:12px Georgia,serif;letter-spacing:normal;cursor:pointer}
 .main-language-picker select:focus-visible{outline:1px solid var(--gold-bright);outline-offset:2px}
-@media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(10px,env(safe-area-inset-top));left:12px;padding:6px 8px}.main-language-picker select{max-width:125px}}
+@media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(10px,env(safe-area-inset-top));right:12px;left:auto;padding:6px 8px}.main-language-picker select{max-width:125px}}
 
 /* Version 0.3.3: keep language picker clear of the main menu */
-.main-language-picker{top:18px;left:clamp(16px,3vw,48px);right:auto;z-index:5}
+.main-language-picker{top:18px;right:clamp(16px,3vw,48px);left:auto;z-index:5}
 @media(min-width:761px) and (pointer:fine){.main-screen .main-menu{top:clamp(68px,9vh,90px)}}
-@media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(12px,env(safe-area-inset-top));left:12px}.main-screen .main-menu{top:50%}}
+@media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(12px,env(safe-area-inset-top));right:12px;left:auto}.main-screen .main-menu{top:50%}}
