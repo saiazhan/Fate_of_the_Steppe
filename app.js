@@ -113,8 +113,9 @@
     });
     const textMap=menuTranslations[language]?.ui_text||menuTranslations.ru?.ui_text||{};
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
-    while((node=walker.nextNode())){const raw=node.nodeValue,trim=raw.trim();if(Object.prototype.hasOwnProperty.call(textMap,trim)){const start=raw.indexOf(trim);node.nodeValue=raw.slice(0,start)+textMap[trim]+raw.slice(start+trim.length);}}
-    const ariaMap=menuTranslations[language]?.ui_aria||{};all("[aria-label]").forEach(el=>{const v=ariaMap[el.getAttribute("aria-label")];if(v)el.setAttribute("aria-label",v);});
+    while((node=walker.nextNode())){const raw=node.nodeValue,trim=raw.trim();const source=Object.keys(menuTranslations.ru?.ui_text||{}).find(key=>["ru","kk","en"].some(code=>menuTranslations[code]?.ui_text?.[key]===trim))||trim;const translated=textMap[source];if(typeof translated==="string"){const start=raw.indexOf(trim);node.nodeValue=raw.slice(0,start)+translated+raw.slice(start+trim.length);}}
+    const ariaMap=menuTranslations[language]?.ui_aria||{};all("[aria-label]").forEach(el=>{const current=el.getAttribute("aria-label");const source=Object.keys(menuTranslations.ru?.ui_aria||{}).find(key=>["ru","kk","en"].some(code=>menuTranslations[code]?.ui_aria?.[key]===current))||current;const v=ariaMap[source];if(v)el.setAttribute("aria-label",v);});
+    paintOutputs();
   }
   $("#language").addEventListener("change",()=>{
     settings.language=$("#language").value;
