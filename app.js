@@ -129,7 +129,7 @@
   const galleryItems=Array.from({length:12},(_,i)=>({number:i+1,title:t("gallery_closed")}));
   function renderGallery(){
     const pages=Math.ceil(galleryItems.length/6),start=galleryPage*6;
-    $("#gallery-album").innerHTML=galleryItems.slice(start,start+6).map(item=>'<div class="gallery-card"><span class="gallery-lock">✧</span><span>'+item.title+'</span><small>Иллюстрация '+String(item.number).padStart(2,"0")+'</small></div>').join("");
+    $("#gallery-album").innerHTML=galleryItems.slice(start,start+6).map(item=>'<div class="gallery-card"><span class="gallery-lock">✧</span><span>'+item.title+'</span><small>'+t("illustration")+' '+String(item.number).padStart(2,"0")+'</small></div>').join("");
     $("#gallery-page-label").textContent=t("page").replace("{n}",galleryPage+1).replace("{total}",pages);
     $("#gallery-prev").disabled=galleryPage===0;$("#gallery-next").disabled=galleryPage>=pages-1;
   }
