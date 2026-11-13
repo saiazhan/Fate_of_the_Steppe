@@ -9,7 +9,7 @@
     "settings": "Настройки",
     "other": "Прочее",
     "exit": "Выход",
-    "version": "ПРОТОТИП · 0.3.4",
+    "version": "ПРОТОТИП · 0.3.5",
     "main_caption": "Там, где начинается горизонт",
     "ui_text": {
       "Здесь начнётся история": "Здесь начнётся история",
@@ -80,7 +80,8 @@
       "Достижения": "Достижения",
       "Об игре": "Об игре",
       "Удалить": "Удалить",
-      "Новая игра": "Новая игра"
+      "Новая игра": "Новая игра",
+      "Звук при наведении на кнопки": "Звук при наведении на кнопки"
     },
     "very_slow": "Очень медленно",
     "slow": "Медленно",
@@ -131,7 +132,8 @@
     "about": "Об игре",
     "delete": "Удалить",
     "gallery_closed": "Закрытое воспоминание",
-    "illustration": "Иллюстрация"
+    "illustration": "Иллюстрация",
+    "hover_sound_label": "Звук при наведении на кнопки"
   },
   "kk": {
     "language_label": "ТІЛ",
@@ -143,7 +145,7 @@
     "settings": "Баптаулар",
     "other": "Басқа",
     "exit": "Шығу",
-    "version": "ПРОТОТИП · 0.3.4",
+    "version": "ПРОТОТИП · 0.3.5",
     "main_caption": "Көкжиек басталатын жерде",
     "ui_text": {
       "Здесь начнётся история": "Оқиға осы жерден басталады",
@@ -214,7 +216,8 @@
       "Достижения": "Жетістіктер",
       "Об игре": "Ойын туралы",
       "Удалить": "Жою",
-      "Новая игра": "Жаңа ойын"
+      "Новая игра": "Жаңа ойын",
+      "Звук при наведении на кнопки": "Түймелерге меңзерді апарғандағы дыбыс"
     },
     "very_slow": "Өте баяу",
     "slow": "Баяу",
@@ -265,7 +268,8 @@
     "about": "Ойын туралы",
     "delete": "Жою",
     "gallery_closed": "Жабық естелік",
-    "illustration": "Сурет"
+    "illustration": "Сурет",
+    "hover_sound_label": "Түймелерге меңзерді апарғандағы дыбыс"
   },
   "en": {
     "language_label": "LANGUAGE",
@@ -277,7 +281,7 @@
     "settings": "Settings",
     "other": "More",
     "exit": "Exit",
-    "version": "PROTOTYPE · 0.3.4",
+    "version": "PROTOTYPE · 0.3.5",
     "main_caption": "Where the horizon begins",
     "ui_text": {
       "Здесь начнётся история": "The story begins here",
@@ -348,7 +352,8 @@
       "Достижения": "Achievements",
       "Об игре": "About",
       "Удалить": "Delete",
-      "Новая игра": "New Game"
+      "Новая игра": "New Game",
+      "Звук при наведении на кнопки": "Button hover sound"
     },
     "very_slow": "Very slow",
     "slow": "Slow",
@@ -399,6 +404,7 @@
     "about": "About",
     "delete": "Delete",
     "gallery_closed": "Locked memory",
-    "illustration": "Illustration"
+    "illustration": "Illustration",
+    "hover_sound_label": "Button hover sound"
   }
 }
