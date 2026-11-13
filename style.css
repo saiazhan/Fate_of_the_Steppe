@@ -197,3 +197,8 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 .main-language-picker select{max-width:145px;padding:4px 22px 4px 7px;color:var(--cream);background:#24352e;border:1px solid rgba(235,211,158,.28);font:12px Georgia,serif;letter-spacing:normal;cursor:pointer}
 .main-language-picker select:focus-visible{outline:1px solid var(--gold-bright);outline-offset:2px}
 @media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(10px,env(safe-area-inset-top));left:12px;padding:6px 8px}.main-language-picker select{max-width:125px}}
+
+/* Version 0.3.3: keep language picker clear of the main menu */
+.main-language-picker{top:18px;left:clamp(16px,3vw,48px);right:auto;z-index:5}
+@media(min-width:761px) and (pointer:fine){.main-screen .main-menu{top:clamp(68px,9vh,90px)}}
+@media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(12px,env(safe-area-inset-top));left:12px}.main-screen .main-menu{top:50%}}

@@ -1,0 +1,41 @@
+{
+  "ru": {
+    "language_label": "ЯЗЫК",
+    "menu_eyebrow": "ВИЗУАЛЬНАЯ НОВЕЛЛА",
+    "game_title": "Степная судьба",
+    "new_game": "Новая игра",
+    "continue": "Продолжить",
+    "load": "Загрузить",
+    "settings": "Настройки",
+    "other": "Прочее",
+    "exit": "Выход",
+    "version": "ПРОТОТИП · 0.3.3",
+    "main_caption": "Там, где начинается горизонт"
+  },
+  "kk": {
+    "language_label": "ТІЛ",
+    "menu_eyebrow": "ВИЗУАЛДЫ НОВЕЛЛА",
+    "game_title": "Дала тағдыры",
+    "new_game": "Жаңа ойын",
+    "continue": "Жалғастыру",
+    "load": "Жүктеу",
+    "settings": "Баптаулар",
+    "other": "Басқа",
+    "exit": "Шығу",
+    "version": "ПРОТОТИП · 0.3.3",
+    "main_caption": "Көкжиек басталатын жерде"
+  },
+  "en": {
+    "language_label": "LANGUAGE",
+    "menu_eyebrow": "VISUAL NOVEL",
+    "game_title": "Fate of the Steppe",
+    "new_game": "New Game",
+    "continue": "Continue",
+    "load": "Load",
+    "settings": "Settings",
+    "other": "More",
+    "exit": "Exit",
+    "version": "PROTOTYPE · 0.3.3",
+    "main_caption": "Where the horizon begins"
+  }
+}

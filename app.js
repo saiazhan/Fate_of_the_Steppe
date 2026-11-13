@@ -34,11 +34,11 @@
   }
   document.addEventListener("pointerover",event=>{
     if(event.pointerType!=="mouse"&&event.pointerType!=="pen")return;
-    const button=event.target.closest("button");if(!button)return;
+    const button=event.target.closest("#main-screen button, #other-screen button");if(!button)return;
     if(event.relatedTarget&&button.contains(event.relatedTarget))return;
     playHoverSound();
   });
-  document.addEventListener("focusin",event=>{if(event.target.matches("button"))playHoverSound();});
+  document.addEventListener("focusin",event=>{if(event.target.closest("#main-screen button, #other-screen button"))playHoverSound();});
   document.addEventListener("keydown",unlockAudio,{once:true});
   function goMain(){stopAllAudio();screen("main-screen");playTrack("main");document.title="Степная судьба · Дала тағдыры · Fate of the Steppe";}
   function openSettings(){screen("settings-screen");playTrack("settings");document.title="Настройки — Степная судьба";}
@@ -90,7 +90,33 @@
   }));
   $("#save-settings").addEventListener("click",saveSettings);
   $("#reset-settings").addEventListener("click",()=>{settings={...defaults};applySettings();saveSettings();$("#save-status").textContent="Возвращены настройки по умолчанию";});
-  $("#language").addEventListener("change",()=>{if($("#language").value!=="ru"){toast("Перевод будет добавлен позже");$("#language").value="ru";settings.language="ru";}});
+  let menuTranslations={};
+  async function loadMenuTranslations(){
+    try{
+      const response=await fetch("locales/menu.json",{cache:"no-store"});
+      if(!response.ok)throw new Error("HTTP "+response.status);
+      menuTranslations=await response.json();
+      applyMenuTranslations(settings.language);
+    }catch(_){console.warn("Не удалось загрузить locales/menu.json; используется русский интерфейс.");}
+  }
+  function applyMenuTranslations(language){
+    const dictionary=menuTranslations[language]||menuTranslations.ru;
+    if(!dictionary)return;
+    document.documentElement.lang=language==="kk"?"kk":language==="en"?"en":"ru";
+    all("[data-i18n]").forEach(node=>{
+      const value=dictionary[node.dataset.i18n];
+      if(typeof value==="string")node.textContent=value;
+    });
+    all("[data-i18n-aria]").forEach(node=>{
+      const value=dictionary[node.dataset.i18nAria];
+      if(typeof value==="string")node.setAttribute("aria-label",value);
+    });
+  }
+  $("#language").addEventListener("change",()=>{
+    settings.language=$("#language").value;
+    applyMenuTranslations(settings.language);
+    try{localStorage.setItem(KEY,JSON.stringify(settings));}catch(_){}
+  });
   function updateSlotSelection(){all(".save-slot").forEach(slot=>slot.classList.toggle("selected",Number(slot.dataset.slot)===selectedSlot));}
   all(".save-slot").forEach(slot=>slot.addEventListener("click",()=>{selectedSlot=Number(slot.dataset.slot);updateSlotSelection();$("#load-status").textContent="Выбран слот "+String(selectedSlot).padStart(2,"0")+" · сохранение пока отсутствует";}));
   $("#load-selected").addEventListener("click",()=>{$("#load-status").textContent="Этот слот пока пуст. Система сохранений появится вместе с игровыми сценами.";});
@@ -146,5 +172,5 @@
     if(e.key==="Escape"){if(!$("#dialog").hidden)closeDialog();else if(!$("#main-screen").hidden)return;else if(!$("#new-game-screen").hidden||!$("#settings-screen").hidden||!$("#load-screen").hidden)goMain();else openOther();}
     if(e.key==="F5"||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="r")){e.preventDefault();toast("Перезагрузка отключена в прототипе.");}
   });
-  applySettings();playTrack("main");
+  applySettings();loadMenuTranslations();playTrack("main");
 })();
