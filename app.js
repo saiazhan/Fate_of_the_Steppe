@@ -1,6 +1,6 @@
 (() => {
   const KEY = "fate-of-the-steppe-settings-v1";
-  const defaults = {musicVolume:70,sfxVolume:80,voiceVolume:85,muteAll:false,displayMode:"windowed",resolution:"auto",reducedMotion:false,language:"ru",textSpeed:3,fontSize:2,skipReadOnly:true,autoForward:false};
+  const defaults = {musicVolume:70,sfxVolume:80,voiceVolume:85,muteAll:false,hoverSoundEnabled:true,displayMode:"windowed",resolution:"auto",reducedMotion:false,language:"ru",textSpeed:3,fontSize:2,skipReadOnly:true,autoForward:false};
   let settings = {...defaults};
   try { settings = {...defaults,...JSON.parse(localStorage.getItem(KEY)||"{}")}; } catch (_) {}
   const $ = s => document.querySelector(s), all = s => [...document.querySelectorAll(s)];
@@ -29,7 +29,7 @@
   }
   document.addEventListener("pointerdown",unlockAudio,{once:true});
   function playHoverSound(){
-    if(!audioUnlocked||settings.muteAll||settings.sfxVolume<=0)return;
+    if(!audioUnlocked||settings.muteAll||settings.hoverSoundEnabled===false||settings.sfxVolume<=0)return;
     const sound=hoverSound.cloneNode();sound.removeAttribute("id");sound.volume=settings.sfxVolume/100;
     sound.addEventListener("ended",()=>sound.remove(),{once:true});
     const playback=sound.play();if(playback&&playback.catch)playback.catch(()=>sound.remove());
@@ -87,6 +87,7 @@
   }
   all("[data-setting]").forEach(c=>c.addEventListener("input",()=>{
     if(c.type==="range"){settings[c.dataset.setting]=Number(c.value);paintOutputs();}
+    if(c.type==="checkbox")settings[c.dataset.setting]=c.checked;
     if(c.dataset.setting==="musicVolume"||c.dataset.setting==="muteAll"){settings[c.dataset.setting]=c.type==="checkbox"?c.checked:Number(c.value);updateMusicVolume();}
   }));
   $("#save-settings").addEventListener("click",saveSettings);
@@ -113,13 +114,23 @@
     });
     const textMap=menuTranslations[language]?.ui_text||menuTranslations.ru?.ui_text||{};
     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
-    while((node=walker.nextNode())){const raw=node.nodeValue,trim=raw.trim();const source=Object.keys(menuTranslations.ru?.ui_text||{}).find(key=>["ru","kk","en"].some(code=>menuTranslations[code]?.ui_text?.[key]===trim))||trim;const translated=textMap[source];if(typeof translated==="string"){const start=raw.indexOf(trim);node.nodeValue=raw.slice(0,start)+translated+raw.slice(start+trim.length);}}
+    while((node=walker.nextNode())){
+      const parent=node.parentElement;
+      if(!parent||parent.closest("[data-i18n]"))continue;
+      if(node.__i18nOriginal===undefined)node.__i18nOriginal=node.nodeValue;
+      const original=node.__i18nOriginal,trim=original.trim(),translated=textMap[trim];
+      if(typeof translated==="string"){
+        const start=original.indexOf(trim);
+        node.nodeValue=original.slice(0,start)+translated+original.slice(start+trim.length);
+      }
+    }
     const ariaMap=menuTranslations[language]?.ui_aria||{};all("[aria-label]").forEach(el=>{const current=el.getAttribute("aria-label");const source=Object.keys(menuTranslations.ru?.ui_aria||{}).find(key=>["ru","kk","en"].some(code=>menuTranslations[code]?.ui_aria?.[key]===current))||current;const v=ariaMap[source];if(v)el.setAttribute("aria-label",v);});
     paintOutputs();
   }
   $("#language").addEventListener("change",()=>{
     settings.language=$("#language").value;
     applyMenuTranslations(settings.language);
+    paintOutputs();
     try{localStorage.setItem(KEY,JSON.stringify(settings));}catch(_){}
   });
   function updateSlotSelection(){all(".save-slot").forEach(slot=>slot.classList.toggle("selected",Number(slot.dataset.slot)===selectedSlot));}
