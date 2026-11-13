@@ -126,7 +126,7 @@
   all(".save-slot").forEach(slot=>slot.addEventListener("click",()=>{selectedSlot=Number(slot.dataset.slot);updateSlotSelection();$("#load-status").textContent=t("selected_slot").replace("{n}",String(selectedSlot).padStart(2,"0"));}));
   $("#load-selected").addEventListener("click",()=>{$("#load-status").textContent=t("slot_empty");});
   $("#delete-selected").addEventListener("click",()=>{$("#load-status").textContent=t("nothing_delete");});
-  const galleryItems=Array.from({length:12},(_,i)=>({number:i+1,title:"Закрытое воспоминание"}));
+  const galleryItems=Array.from({length:12},(_,i)=>({number:i+1,title:t("gallery_closed")}));
   function renderGallery(){
     const pages=Math.ceil(galleryItems.length/6),start=galleryPage*6;
     $("#gallery-album").innerHTML=galleryItems.slice(start,start+6).map(item=>'<div class="gallery-card"><span class="gallery-lock">✧</span><span>'+item.title+'</span><small>Иллюстрация '+String(item.number).padStart(2,"0")+'</small></div>').join("");
