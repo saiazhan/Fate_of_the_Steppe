@@ -80,9 +80,9 @@
   function collectSettings(){all("[data-setting]").forEach(c=>{const k=c.dataset.setting;settings[k]=c.type==="checkbox"?c.checked:c.type==="range"?Number(c.value):c.value;});if(mobileQuery.matches)settings.displayMode="windowed";}
   function updateMusicVolume(){Object.values(tracks).forEach(a=>a.volume=settings.muteAll?0:settings.musicVolume/100);selectedMusic.volume=settings.muteAll?0:settings.musicVolume/100;}
   function saveSettings(){
-    collectSettings();try{localStorage.setItem(KEY,JSON.stringify(settings));$("#save-status").textContent="Сохранено на этом устройстве";}catch(_){$("#save-status").textContent="Не удалось сохранить настройки в этом браузере";}
+    collectSettings();try{localStorage.setItem(KEY,JSON.stringify(settings));$("#save-status").textContent=t("saved");}catch(_){$("#save-status").textContent=t("save_error");}
     paintOutputs();updateMusicVolume();
-    if(!mobileQuery.matches&&settings.displayMode==="fullscreen"&&!document.fullscreenElement){const p=document.documentElement.requestFullscreen?.();if(p&&p.catch)p.catch(()=>$("#save-status").textContent="Браузер не разрешил полный экран");}
+    if(!mobileQuery.matches&&settings.displayMode==="fullscreen"&&!document.fullscreenElement){const p=document.documentElement.requestFullscreen?.();if(p&&p.catch)p.catch(()=>$("#save-status").textContent=t("fullscreen_error"));}
     else if(document.fullscreenElement&&settings.displayMode==="windowed")document.exitFullscreen?.();
   }
   all("[data-setting]").forEach(c=>c.addEventListener("input",()=>{
@@ -90,7 +90,7 @@
     if(c.dataset.setting==="musicVolume"||c.dataset.setting==="muteAll"){settings[c.dataset.setting]=c.type==="checkbox"?c.checked:Number(c.value);updateMusicVolume();}
   }));
   $("#save-settings").addEventListener("click",saveSettings);
-  $("#reset-settings").addEventListener("click",()=>{settings={...defaults};applySettings();saveSettings();$("#save-status").textContent="Возвращены настройки по умолчанию";});
+  $("#reset-settings").addEventListener("click",()=>{settings={...defaults};applySettings();saveSettings();$("#save-status").textContent=t("reset_done");});
   async function loadMenuTranslations(){
     try{
       const response=await fetch("locales/menu.json",{cache:"no-store"});
@@ -136,24 +136,24 @@
   $("#gallery-prev").addEventListener("click",()=>{if(galleryPage>0){galleryPage--;renderGallery();}});
   $("#gallery-next").addEventListener("click",()=>{if(galleryPage<Math.ceil(galleryItems.length/6)-1){galleryPage++;renderGallery();}});
   async function loadMusicLibrary(){
-    const list=$("#music-list");list.innerHTML='<p class="hint">Загрузка списка композиций…</p>';
+    const list=$("#music-list");list.innerHTML='<p class="hint">'+t("loading_tracks")+'</p>';
     try{
       const response=await fetch("sounds/main_menu/music_library.json",{cache:"no-store"});
       if(!response.ok)throw new Error("HTTP "+response.status);
       const data=await response.json();musicItems=Array.isArray(data.tracks)?data.tracks:[];
       renderMusicList();
     }catch(_){
-      list.innerHTML='<p class="hint">Не удалось прочитать sounds/main_menu/music_library.json. В сборке игры файл будет загружаться локально; при открытии index.html напрямую браузер может ограничивать чтение JSON.</p>';
+      list.innerHTML='<p class="hint">'+t("track_loading_error")+'</p>';
     }
   }
   function renderMusicList(){
     const list=$("#music-list");
-    if(!musicItems.length){list.innerHTML='<p class="hint">Пока здесь нет композиций. Добавь их в sounds/main_menu/music_library.json.</p>';return;}
+    if(!musicItems.length){list.innerHTML='<p class="hint">'+t("no_tracks")+'</p>';return;}
     list.innerHTML="";
     for(let cycle=0;cycle<3;cycle++) musicItems.forEach((item,index)=>{
       const button=document.createElement("button");button.type="button";button.className="music-track";button.dataset.index=String(index);button.dataset.cycle=String(cycle);
       const info=document.createElement("span");const title=document.createElement("strong");title.textContent=item.title||t("no_title");const description=document.createElement("small");description.textContent=item.description||item.artist||t("track");info.append(title,description);
-      const state=document.createElement("span");state.className="music-track-state";state.textContent="ВЫБРАТЬ";button.append(info,state);
+      const state=document.createElement("span");state.className="music-track-state";state.textContent=t("choose_music");button.append(info,state);
       button.addEventListener("click",()=>playMusicItem(index));list.append(button);
     });
     const middle=list.children.length/3;
@@ -167,11 +167,11 @@
   function playMusicItem(index){
     const item=musicItems[index];if(!item||!item.src){toast(t("track_missing"));return;}
     stopAllAudio();currentTrack="selected";selectedMusic.src=item.src;selectedMusic.loop=item.loop!==false;selectedMusic.volume=settings.muteAll?0:settings.musicVolume/100;
-    $("#music-now-title").textContent=item.title||"Без названия";$("#music-now-description").textContent=[item.artist,item.description].filter(Boolean).join(" · ")||t("soundtrack");
-    all(".music-track").forEach(button=>{const active=Number(button.dataset.index)===index;button.classList.toggle("active",active);button.querySelector(".music-track-state").textContent=active?"ИГРАЕТ":"ВЫБРАТЬ";});
+    $("#music-now-title").textContent=item.title||t("no_title");$("#music-now-description").textContent=[item.artist,item.description].filter(Boolean).join(" · ")||t("soundtrack");
+    all(".music-track").forEach(button=>{const active=Number(button.dataset.index)===index;button.classList.toggle("active",active);button.querySelector(".music-track-state").textContent=active?t("now_playing"):t("choose_music");});
     if(audioUnlocked){const p=selectedMusic.play();if(p&&p.catch)p.catch(()=>toast(t("track_error")));}
   }
-  $("#music-stop").addEventListener("click",()=>{selectedMusic.pause();selectedMusic.currentTime=0;all(".music-track").forEach(b=>{b.classList.remove("active");b.querySelector(".music-track-state").textContent="СЛУШАТЬ";});$("#music-now-title").textContent=t("no_track_selected");$("#music-now-description").textContent=t("choose_from_list");});
+  $("#music-stop").addEventListener("click",()=>{selectedMusic.pause();selectedMusic.currentTime=0;all(".music-track").forEach(b=>{b.classList.remove("active");b.querySelector(".music-track-state").textContent=t("listen");});$("#music-now-title").textContent=t("no_track_selected");$("#music-now-description").textContent=t("choose_from_list");});
   mobileQuery.addEventListener?.("change",()=>applySettings());
   document.addEventListener("keydown",e=>{
     if(e.key==="Escape"){if(!$("#dialog").hidden)closeDialog();else if(!$("#main-screen").hidden)return;else if(!$("#new-game-screen").hidden||!$("#settings-screen").hidden||!$("#load-screen").hidden)goMain();else openOther();}
