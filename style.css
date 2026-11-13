@@ -200,5 +200,5 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 
 /* Version 0.3.3: keep language picker clear of the main menu */
 .main-language-picker{top:18px;right:clamp(16px,3vw,48px);left:auto;z-index:5}
-@media(min-width:761px) and (pointer:fine){.main-screen .main-menu{top:clamp(16px,3vh,30px)}}
+@media(min-width:761px) and (pointer:fine){.main-screen .main-menu{top:18px}}
 @media(max-width:760px),(pointer:coarse){.main-language-picker{top:max(12px,env(safe-area-inset-top));right:12px;left:auto}.main-screen .main-menu{top:50%}}
