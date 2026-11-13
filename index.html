@@ -26,7 +26,7 @@
         <button class="menu-button" data-action="other" data-i18n="other">Прочее</button>
         <button class="menu-button exit" data-action="exit" data-i18n="exit">Выход</button>
       </nav>
-      <div class="version" data-i18n="version">ПРОТОТИП · 0.3.4</div>
+      <div class="version" data-i18n="version">ПРОТОТИП · 0.3.5</div>
     </section>
     <div class="scene-caption" data-i18n="main_caption">Там, где начинается горизонт</div>
   </main>
@@ -58,6 +58,7 @@
         <div class="setting-block"><div class="setting-label"><label for="sfx-volume">Громкость звуков</label><output id="sfx-value">80%</output></div><input id="sfx-volume" data-setting="sfxVolume" type="range" min="0" max="100"></div>
         <div class="setting-block"><div class="setting-label"><label for="voice-volume">Громкость персонажей</label><output id="voice-value">85%</output></div><input id="voice-volume" data-setting="voiceVolume" type="range" min="0" max="100"><p class="hint">Настройка подготовлена для будущей озвучки.</p></div>
         <label class="check-row"><span>Отключить все звуки</span><input data-setting="muteAll" type="checkbox"></label>
+        <label class="check-row"><span data-i18n="hover_sound_label">Звук при наведении на кнопки</span><input data-setting="hoverSoundEnabled" type="checkbox"></label>
       </div>
       <div class="tab-content" id="tab-video" role="tabpanel" aria-labelledby="tab-button-video" hidden>
         <label class="select-row desktop-only" for="display-mode"><span>Режим отображения</span><select id="display-mode" data-setting="displayMode"><option value="windowed">В окне</option><option value="fullscreen">Полный экран</option></select></label>
