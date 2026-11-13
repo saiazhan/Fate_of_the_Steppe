@@ -1,0 +1,60 @@
+{
+  "tracks": [
+    {
+      "id": "main-menu",
+      "title": "main_menu_sounds",
+      "description": "Фоновая тема главного меню",
+      "src": "sounds/main_menu/main_menu_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "settings",
+      "title": "settings_sounds",
+      "description": "Музыка настроек",
+      "src": "sounds/main_menu/settings_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "safe-load",
+      "title": "safe_load_sounds",
+      "description": "Музыка загрузки",
+      "src": "sounds/main_menu/safe_load_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "other",
+      "title": "other_sounds",
+      "description": "Музыка раздела «Прочее»",
+      "src": "sounds/main_menu/other_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "gallery",
+      "title": "gallery_sounds",
+      "description": "Музыка галереи",
+      "src": "sounds/main_menu/gallery_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "musical-room",
+      "title": "musical_rum_sounds",
+      "description": "Музыка музыкальной комнаты",
+      "src": "sounds/main_menu/musical_rum_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "achievements",
+      "title": "achivments_sounds",
+      "description": "Музыка достижений",
+      "src": "sounds/main_menu/achivments_sounds.mp3",
+      "loop": true
+    },
+    {
+      "id": "about",
+      "title": "about_us_sounds",
+      "description": "Музыка раздела «Об игре»",
+      "src": "sounds/main_menu/about_us_sounds.mp3",
+      "loop": true
+    }
+  ]
+}

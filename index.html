@@ -6,11 +6,13 @@
   <meta name="theme-color" content="#172a25">
   <meta name="description" content="Степная судьба — визуальная новелла">
   <title>Степная судьба · Дала тағдыры · Fate of the Steppe</title>
+  <link rel="icon" type="image/jpeg" href="assets/main_menu/icon.jpg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main id="main-screen" class="screen main-screen" aria-label="Главное меню">
     <div class="screen-shade"></div>
+    <label class="main-language-picker" for="language"><span>ЯЗЫК</span><select id="language" data-setting="language"><option value="ru">Русский</option><option value="kk">Қазақша — позже</option><option value="en">English — later</option></select></label>
     <section class="main-menu">
       <div class="eyebrow">ВИЗУАЛЬНАЯ НОВЕЛЛА</div>
       <h1>Степная судьба</h1>
@@ -24,7 +26,7 @@
         <button class="menu-button" data-action="other">Прочее</button>
         <button class="menu-button exit" data-action="exit">Выход</button>
       </nav>
-      <div class="version">ПРОТОТИП · 0.3.1</div>
+      <div class="version">ПРОТОТИП · 0.3.2</div>
     </section>
     <div class="scene-caption">Там, где начинается горизонт</div>
   </main>
@@ -64,7 +66,6 @@
         <p class="hint">Полноэкранный режим доступен на компьютере. На телефоне эта настройка скрыта.</p>
       </div>
       <div class="tab-content" id="tab-other" role="tabpanel" aria-labelledby="tab-button-other" hidden>
-        <label class="select-row" for="language"><span>Язык интерфейса</span><select id="language" data-setting="language"><option value="ru">Русский (по умолчанию)</option><option value="kk">Қазақша — позже</option><option value="en">English — later</option></select></label>
         <div class="setting-block"><div class="setting-label"><label for="text-speed">Скорость текста</label><output id="speed-value">Средняя</output></div><input id="text-speed" data-setting="textSpeed" type="range" min="1" max="5"></div>
         <div class="setting-block"><div class="setting-label"><label for="font-size">Размер текста</label><output id="font-value">Обычный</output></div><input id="font-size" data-setting="fontSize" type="range" min="1" max="3"></div>
         <label class="check-row"><span>Пропускать только прочитанный текст</span><input data-setting="skipReadOnly" type="checkbox"></label>
@@ -176,15 +177,16 @@
   </section>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <audio id="music-main" src="sounds/main_menu_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-settings" src="sounds/settings_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-load" src="sounds/safe_load_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-other" src="sounds/other_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-gallery" src="sounds/gallery_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-room" src="sounds/musical_rum_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-achievements" src="sounds/achivments_sounds.mp3" loop preload="auto"></audio>
-  <audio id="music-about" src="sounds/about_us_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-main" src="sounds/main_menu/main_menu_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-settings" src="sounds/main_menu/settings_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-load" src="sounds/main_menu/safe_load_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-other" src="sounds/main_menu/other_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-gallery" src="sounds/main_menu/gallery_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-room" src="sounds/main_menu/musical_rum_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-achievements" src="sounds/main_menu/achivments_sounds.mp3" loop preload="auto"></audio>
+  <audio id="music-about" src="sounds/main_menu/about_us_sounds.mp3" loop preload="auto"></audio>
   <audio id="music-selected" preload="none"></audio>
+  <audio id="ui-hover-sound" src="sounds/main_menu/popap_sounds.mp3" preload="auto"></audio>
   <script src="app.js"></script>
 </body>
 </html>

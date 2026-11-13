@@ -7,6 +7,7 @@
   const speedNames=["Очень медленно","Медленно","Средняя","Быстро","Очень быстро"], fontNames=["Маленький","Обычный","Крупный"];
   const tracks={main:$("#music-main"),settings:$("#music-settings"),load:$("#music-load"),other:$("#music-other"),gallery:$("#music-gallery"),"music-room":$("#music-room"),achievements:$("#music-achievements"),about:$("#music-about")};
   const selectedMusic=$("#music-selected");
+  const hoverSound=$("#ui-hover-sound");
   let currentTrack=null, audioUnlocked=false, toastTimer, selectedSlot=1, galleryPage=0, musicItems=[];
   const mobileQuery=window.matchMedia("(max-width:760px), (pointer:coarse)");
   const screenIds=["main-screen","new-game-screen","settings-screen","load-screen","other-screen","gallery-screen","music-room-screen","achievements-screen","about-screen"];
@@ -25,6 +26,19 @@
     if(currentTrack&&tracks[currentTrack]){const p=tracks[currentTrack].play();if(p&&p.catch)p.catch(()=>{});}
   }
   document.addEventListener("pointerdown",unlockAudio,{once:true});
+  function playHoverSound(){
+    if(!audioUnlocked||settings.muteAll||settings.sfxVolume<=0)return;
+    const sound=hoverSound.cloneNode();sound.removeAttribute("id");sound.volume=settings.sfxVolume/100;
+    sound.addEventListener("ended",()=>sound.remove(),{once:true});
+    const playback=sound.play();if(playback&&playback.catch)playback.catch(()=>sound.remove());
+  }
+  document.addEventListener("pointerover",event=>{
+    if(event.pointerType!=="mouse"&&event.pointerType!=="pen")return;
+    const button=event.target.closest("button");if(!button)return;
+    if(event.relatedTarget&&button.contains(event.relatedTarget))return;
+    playHoverSound();
+  });
+  document.addEventListener("focusin",event=>{if(event.target.matches("button"))playHoverSound();});
   document.addEventListener("keydown",unlockAudio,{once:true});
   function goMain(){stopAllAudio();screen("main-screen");playTrack("main");document.title="Степная судьба · Дала тағдыры · Fate of the Steppe";}
   function openSettings(){screen("settings-screen");playTrack("settings");document.title="Настройки — Степная судьба";}
@@ -93,17 +107,17 @@
   async function loadMusicLibrary(){
     const list=$("#music-list");list.innerHTML='<p class="hint">Загрузка списка композиций…</p>';
     try{
-      const response=await fetch("sounds/music_library.json",{cache:"no-store"});
+      const response=await fetch("sounds/main_menu/music_library.json",{cache:"no-store"});
       if(!response.ok)throw new Error("HTTP "+response.status);
       const data=await response.json();musicItems=Array.isArray(data.tracks)?data.tracks:[];
       renderMusicList();
     }catch(_){
-      list.innerHTML='<p class="hint">Не удалось прочитать sounds/music_library.json. В сборке игры файл будет загружаться локально; при открытии index.html напрямую браузер может ограничивать чтение JSON.</p>';
+      list.innerHTML='<p class="hint">Не удалось прочитать sounds/main_menu/music_library.json. В сборке игры файл будет загружаться локально; при открытии index.html напрямую браузер может ограничивать чтение JSON.</p>';
     }
   }
   function renderMusicList(){
     const list=$("#music-list");
-    if(!musicItems.length){list.innerHTML='<p class="hint">Пока здесь нет композиций. Добавь их в sounds/music_library.json.</p>';return;}
+    if(!musicItems.length){list.innerHTML='<p class="hint">Пока здесь нет композиций. Добавь их в sounds/main_menu/music_library.json.</p>';return;}
     list.innerHTML="";
     for(let cycle=0;cycle<3;cycle++) musicItems.forEach((item,index)=>{
       const button=document.createElement("button");button.type="button";button.className="music-track";button.dataset.index=String(index);button.dataset.cycle=String(cycle);
