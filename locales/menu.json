@@ -71,7 +71,16 @@
       "Закрыть": "Закрыть",
       "← Назад": "← Назад",
       "← Главное меню": "← Главное меню",
-      "Вперёд →": "Вперёд →"
+      "Вперёд →": "Вперёд →",
+      "Настройки": "Настройки",
+      "Загрузить игру": "Загрузить",
+      "Прочее": "Прочее",
+      "Галерея": "Галерея",
+      "Музыкальная комната": "Музыкальная комната",
+      "Достижения": "Достижения",
+      "Об игре": "Об игре",
+      "Удалить": "Удалить",
+      "Новая игра": "Новая игра"
     },
     "very_slow": "Очень медленно",
     "slow": "Медленно",
@@ -107,7 +116,20 @@
       "Музыкальная комната": "Музыкальная комната",
       "Достижения": "Достижения",
       "Об игре": "Об игре"
-    }
+    },
+    "saved": "Сохранено на этом устройстве",
+    "save_error": "Не удалось сохранить настройки в этом браузере",
+    "reset_done": "Возвращены настройки по умолчанию",
+    "fullscreen_error": "Браузер не разрешил полный экран",
+    "loading_tracks": "Загрузка списка композиций…",
+    "track_loading_error": "Не удалось прочитать sounds/main_menu/music_library.json. При открытии index.html напрямую браузер может ограничивать чтение JSON.",
+    "no_tracks": "Пока здесь нет композиций. Добавь их в sounds/main_menu/music_library.json.",
+    "listen": "СЛУШАТЬ",
+    "gallery": "Галерея",
+    "music_room": "Музыкальная комната",
+    "achievements": "Достижения",
+    "about": "Об игре",
+    "delete": "Удалить"
   },
   "kk": {
     "language_label": "ТІЛ",
@@ -181,7 +203,16 @@
       "Закрыть": "Жабу",
       "← Назад": "← Артқа",
       "← Главное меню": "← Басты мәзір",
-      "Вперёд →": "Алға →"
+      "Вперёд →": "Алға →",
+      "Настройки": "Баптаулар",
+      "Загрузить игру": "Жүктеу",
+      "Прочее": "Басқа",
+      "Галерея": "Галерея",
+      "Музыкальная комната": "Музыка бөлмесі",
+      "Достижения": "Жетістіктер",
+      "Об игре": "Ойын туралы",
+      "Удалить": "Жою",
+      "Новая игра": "Жаңа ойын"
     },
     "very_slow": "Өте баяу",
     "slow": "Баяу",
@@ -217,7 +248,20 @@
       "Музыкальная комната": "Музыка бөлмесі",
       "Достижения": "Жетістіктер",
       "Об игре": "Ойын туралы"
-    }
+    },
+    "saved": "Баптаулар осы құрылғыда сақталды",
+    "save_error": "Баптауларды осы браузерде сақтау мүмкін болмады",
+    "reset_done": "Әдепкі баптаулар қалпына келтірілді",
+    "fullscreen_error": "Браузер толық экранға рұқсат бермеді",
+    "loading_tracks": "Әуендер тізімі жүктелуде…",
+    "track_loading_error": "sounds/main_menu/music_library.json файлын оқу мүмкін болмады.",
+    "no_tracks": "Әзірге мұнда әуендер жоқ. Оларды sounds/main_menu/music_library.json файлына қос.",
+    "listen": "ТЫҢДАУ",
+    "gallery": "Галерея",
+    "music_room": "Музыка бөлмесі",
+    "achievements": "Жетістіктер",
+    "about": "Ойын туралы",
+    "delete": "Жою"
   },
   "en": {
     "language_label": "LANGUAGE",
@@ -291,7 +335,16 @@
       "Закрыть": "Close",
       "← Назад": "← Back",
       "← Главное меню": "← Main menu",
-      "Вперёд →": "Next →"
+      "Вперёд →": "Next →",
+      "Настройки": "Settings",
+      "Загрузить игру": "Load",
+      "Прочее": "More",
+      "Галерея": "Gallery",
+      "Музыкальная комната": "Music Room",
+      "Достижения": "Achievements",
+      "Об игре": "About",
+      "Удалить": "Delete",
+      "Новая игра": "New Game"
     },
     "very_slow": "Very slow",
     "slow": "Slow",
@@ -327,6 +380,19 @@
       "Музыкальная комната": "Music Room",
       "Достижения": "Achievements",
       "Об игре": "About"
-    }
+    },
+    "saved": "Settings saved on this device",
+    "save_error": "Could not save settings in this browser",
+    "reset_done": "Default settings restored",
+    "fullscreen_error": "The browser did not allow fullscreen mode",
+    "loading_tracks": "Loading track list…",
+    "track_loading_error": "Could not read sounds/main_menu/music_library.json. Opening index.html directly may restrict JSON access in the browser.",
+    "no_tracks": "There are no tracks here yet. Add them to sounds/main_menu/music_library.json.",
+    "listen": "LISTEN",
+    "gallery": "Gallery",
+    "music_room": "Music Room",
+    "achievements": "Achievements",
+    "about": "About",
+    "delete": "Delete"
   }
 }
