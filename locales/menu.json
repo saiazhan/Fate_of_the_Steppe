@@ -129,7 +129,9 @@
     "music_room": "Музыкальная комната",
     "achievements": "Достижения",
     "about": "Об игре",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "gallery_closed": "Закрытое воспоминание",
+    "illustration": "Иллюстрация"
   },
   "kk": {
     "language_label": "ТІЛ",
@@ -261,7 +263,9 @@
     "music_room": "Музыка бөлмесі",
     "achievements": "Жетістіктер",
     "about": "Ойын туралы",
-    "delete": "Жою"
+    "delete": "Жою",
+    "gallery_closed": "Жабық естелік",
+    "illustration": "Сурет"
   },
   "en": {
     "language_label": "LANGUAGE",
@@ -393,6 +397,8 @@
     "music_room": "Music Room",
     "achievements": "Achievements",
     "about": "About",
-    "delete": "Delete"
+    "delete": "Delete",
+    "gallery_closed": "Locked memory",
+    "illustration": "Illustration"
   }
 }
