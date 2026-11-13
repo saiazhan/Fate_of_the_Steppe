@@ -12,31 +12,31 @@
 - меню загрузки с демонстрационными пустыми слотами;
 - меню «Прочее»;
 - галерея с шестью ячейками на страницу и перелистыванием;
-- музыкальная комната со списком композиций из `sounds/music_library.json`;
+- музыкальная комната со списком композиций из `sounds/main_menu/music_library.json`;
 - заготовки разделов «Достижения» и «Об игре».
 
 ## Музыкальная комната
-Каталог находится в `sounds/music_library.json`. Добавляй объекты в массив `tracks` по образцу:
+Каталог находится в `sounds/main_menu/music_library.json`. Добавляй объекты в массив `tracks` по образцу:
 - `id` — уникальный идентификатор;
 - `title` — название композиции;
 - `artist` — исполнитель;
 - `description` — описание;
-- `src` — путь к аудиофайлу относительно корня игры, например `sounds/steppe_theme.mp3`;
+- `src` — путь к аудиофайлу относительно корня игры, например `sounds/main_menu/steppe_theme.mp3`;
 - `loop` — зацикливать ли композицию.
 
 Сам JSON-файл уже создан, массив пока пустой. Когда добавляешь трек, положи аудиофайл в папку `sounds` и укажи его имя в `src`.
 
 ## Ресурсы
-- `assets/steppe-background.jpg` — главное меню;
-- `assets/yurt-settings.jpg` — настройки (отражается по горизонтали);
-- `assets/safe_river.jpg` — загрузка сохранений;
-- `assets/other_baige.jpg` — меню «Прочее»;
-- `assets/gallery_chest.jpg` — галерея;
-- `assets/muscial_bg.jpg` — музыкальная комната;
-- `assets/acivments_tree.jpg` — достижения;
-- `assets/about_us_bg.jpg` — об игре;
-- `sounds/main_menu_sounds.mp3`, `settings_sounds.mp3`, `safe_load_sounds.mp3` — звуки основных экранов;
-- `sounds/other_sounds.mp3`, `gallery_sounds.mp3`, `musical_rum_sounds.mp3`, `achivments_sounds.mp3`, `about_us_sounds.mp3` — звуки новых разделов.
+- `assets/main_menu/steppe-background.jpg` — главное меню;
+- `assets/main_menu/yurt-settings.jpg` — настройки (отражается по горизонтали);
+- `assets/main_menu/safe_river.jpg` — загрузка сохранений;
+- `assets/main_menu/other_baige.jpg` — меню «Прочее»;
+- `assets/main_menu/gallery_chest.jpg` — галерея;
+- `assets/main_menu/muscial_bg.jpg` — музыкальная комната;
+- `assets/main_menu/acivments_tree.jpg` — достижения;
+- `assets/main_menu/about_us_bg.jpg` — об игре;
+- `sounds/main_menu/main_menu_sounds.mp3`, `settings_sounds.mp3`, `safe_load_sounds.mp3` — звуки основных экранов;
+- `sounds/main_menu/other_sounds.mp3`, `gallery_sounds.mp3`, `musical_rum_sounds.mp3`, `achivments_sounds.mp3`, `about_us_sounds.mp3` — звуки новых разделов.
 
 Пути к новым ресурсам указаны в интерфейсе; имена файлов должны совпадать с указанными выше.
 
